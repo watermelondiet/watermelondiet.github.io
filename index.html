@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Software Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2b77ad;
+            --accent-color: #4299e1;
+            --text-color: #2d3748;
+            --text-light: #4a5568;
+            --background: #ffffff;
+            --light-bg: #f7fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--background);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-color);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        /* Main content */
+        main {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--light-bg) 0%, #e6f3ff 100%);
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 4rem 0;
+        }
+
+        .content-section.alt-bg {
+            background: var(--light-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Blog Posts Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: var(--background);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .blog-meta {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .blog-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--light-bg);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+        }
+
+        .read-more {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: var(--secondary-color);
+        }
+
+        /* About Preview */
+        .about-preview {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .about-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--text-light);
+            margin: 0 auto;
+        }
+
+        .about-content h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--background);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-preview {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            header, footer, .section-header, .cta-buttons {
+                display: none !important;
+            }
+            
+            .resume-content {
+                box-shadow: none !important;
+                padding: 0 !important;
+                max-width: none !important;
+                margin: 0 !important;
+            }
+            
+            body {
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+            
+            .job {
+                page-break-inside: avoid;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+        }
+
+        /* PDF Container Responsive */
+        .pdf-container iframe {
+            min-height: 600px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-container iframe {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-container iframe {
+                height: 400px;
+            }
+        }
+
+        /* Hide inactive pages */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Michael Cooke</div>
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#resume" class="nav-link">Resume</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#blog" class="nav-link">Blog</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <button class="menu-toggle">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <div class="container">
+                    <h1>Michael Cooke</h1>
+                    <p class="subtitle">Cybersecurity Professional</p>
+                    <p>Cyber Operations Specialist with expertise in red team assessments, defensive operations, and data-driven solutions. TS/SCI clearance holder with proven experience in threat emulation and analysis.</p>
+                    <div class="cta-buttons">
+                        <a href="#resume" class="btn btn-primary nav-link">View Resume</a>
+                        <a href="#contact" class="btn btn-secondary nav-link">Contact Me</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Recent Projects</h2>
+                        <p>A blog concerning my homelab, recent projects, and technical explorations</p>
+                    </div>
+                    
+                    <div class="blog-grid">
+                        <article class="blog-card">
+                            <h3>StormCloud Arsenal</h3>
+                            <div class="blog-meta">
+                                <span>August 2025</span>
+                                <span>•</span>
+                                <span>Cloud Security</span>
+                            </div>
+                            <div class="tech-stack">
+                                <span class="tech-tag">AWS</span>
+                                <span class="tech-tag">Terraform</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Stripe API</span>
+                            </div>
+                            <p class="blog-excerpt">Automated AWS red team infrastructure with defensive monitoring. A strategic wargaming scenario to demonstrate proficiency in both Red and Blue team operations.</p>
+                            <a href="#" class="read-more">View Project →</a>
+                        </article>
+                      
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section alt-bg">
+                <div class="container">
+                    <div class="about-preview">
+                        <div class="about-image">👨‍💻</div>
+                        <div class="about-content">
+                            <h3>About Me</h3>
+                            <p>I'm a cybersecurity professional currently serving as a Cyber Operations Specialist with the U.S. Army Reserve. My expertise spans red team operations, defensive cyber operations, and data analysis, with a focus on automation and threat detection.</p>
+                            <p>With a background that includes major tech companies like Amazon, Microsoft, and Starbucks, I bring both technical skills and operational experience to complex cybersecurity challenges.</p>
+                            <a href="#about" class="btn btn-primary nav-link">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Resume Page -->
+        <div id="resume" class="page">
+            <section class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Resume</h2>
+                        <p>My professional experience and qualifications</p>
+                    </div>
+                    
+                    <!-- Print Button -->
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <button onclick="window.print()" class="btn btn-primary">🖨️ Print Resume</button>
+                        <a href="mailto:mc.cooke@proton.me" class="btn btn-secondary">📧 Contact Me</a>
+                    </div>
+
+                    <!-- Resume Content -->
+                    <div class="resume-content" style="background: var(--background); padding: 3rem; border-radius: 12px; box-shadow: var(--shadow); max-width: 800px; margin: 0 auto;">
+                        
+                        <!-- Header -->
+                        <div class="resume-header" style="text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid var(--border-color);">
+                            <h1 style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 0.5rem; font-weight: 700;">Michael Cooke</h1>
+                            <div style="color: var(--text-light); font-size: 1.1rem; line-height: 1.8;">
+                                <div>Seattle, WA | <a href="mailto:mc.cooke@proton.me" style="color: var(--accent-color);">mc.cooke@proton.me</a> | (206) 940-5280</div>
+                                <div>TS/SCI Clearance</div>
+                                <div>
+                                    <a href="https://linkedin.com/in/micooke" style="color: var(--accent-color);">LinkedIn</a> | 
+                                    <a href="https://github.com/watermelondiet" style="color: var(--accent-color);">GitHub</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Section -->
+                        <div class="resume-section" style="margin-bottom: 3rem;">
+                            <h2 style="color: var(--primary-color); font-size: 1.8rem; margin-bottom: 2rem; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Experience</h2>
+                            
+                            <!-- Current Role -->
+                            <div class="job" style="margin-bottom: 2.5rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                                    <div>
+                                        <h3 style="color: var(--text-color); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.25rem;">U.S. Army Reserve Cyber Protection Team 187</h3>
+                                        <h4 style="color: var(--secondary-color); font-size: 1.1rem; font-weight: 500;">Cyber Operations Specialist (17C)</h4>
+                                    </div>
+                                    <div style="color: var(--text-light); font-weight: 500; white-space: nowrap;">June 2024 - Present</div>
+                                </div>
+                                <div style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem;">Camp Murray, WA</div>
+                                <ul style="color: var(--text-color); margin-left: 1.5rem; line-height: 1.7;">
+                                    <li>Conduct red team assessments, adversary emulation, and threat reconnaissance in simulated and live enterprise environments, emulating TTPs of known APTs.</li>
+                                    <li>Perform network enumeration, lateral movement, and post-exploitation on Active Directory and Linux-based targets using tools such as Nmap, Metasploit, and Impacket.</li>
+                                    <li>Conduct defensive cyber operations using Security Onion, Wireshark, Splunk, TCPdump, and BPF to detect anomalies, triage alerts, and analyze network traffic.</li>
+                                    <li>Write and deploy custom scripts in Python, Bash, and PowerShell to automate exploitation, persistence, detection, and remediation.</li>
+                                    <li>Applied threat emulation techniques during war games, maintaining persistent access on adversary systems while defending own assets.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Elections Clerk -->
+                            <div class="job" style="margin-bottom: 2.5rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                                    <div>
+                                        <h3 style="color: var(--text-color); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.25rem;">City and County of Honolulu</h3>
+                                        <h4 style="color: var(--secondary-color); font-size: 1.1rem; font-weight: 500;">Senior Elections Clerk/Professional Trainee I</h4>
+                                    </div>
+                                    <div style="color: var(--text-light); font-weight: 500; white-space: nowrap;">April 2022 - June 2023</div>
+                                </div>
+                                <div style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem;">Honolulu, HI</div>
+                                <ul style="color: var(--text-color); margin-left: 1.5rem; line-height: 1.7;">
+                                    <li>Created automated scripts to find and highlight common data entry errors reducing auditing time for voter file changes by over 50%.</li>
+                                    <li>Planned, directed, and monitored the work of temporary staff in call center, data entry, ballot collection, and ballot processing functions.</li>
+                                    <li>Assist the Election Specialist in election setup, ballot package processing, and results reporting.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Whole Foods -->
+                            <div class="job" style="margin-bottom: 2.5rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                                    <div>
+                                        <h3 style="color: var(--text-color); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.25rem;">Whole Foods Market</h3>
+                                        <h4 style="color: var(--secondary-color); font-size: 1.1rem; font-weight: 500;">Store Support Supervisor</h4>
+                                    </div>
+                                    <div style="color: var(--text-light); font-weight: 500; white-space: nowrap;">March 2020 - October 2021</div>
+                                </div>
+                                <div style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem;">Kirkland, WA</div>
+                                <ul style="color: var(--text-color); margin-left: 1.5rem; line-height: 1.7;">
+                                    <li>Supervised and trained staff in customer service and cash handling operations.</li>
+                                    <li>Implemented conflict resolution strategies with empathy to successfully reconcile customer escalations.</li>
+                                    <li>Collaborated with team members to develop and adjust work schedules, balancing individual preferences with forecasted operational needs.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Amazon -->
+                            <div class="job" style="margin-bottom: 2.5rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                                    <div>
+                                        <h3 style="color: var(--text-color); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.25rem;">Amazon</h3>
+                                        <h4 style="color: var(--secondary-color); font-size: 1.1rem; font-weight: 500;">Recruiting Coordinator</h4>
+                                    </div>
+                                    <div style="color: var(--text-light); font-weight: 500; white-space: nowrap;">February 2016 - September 2017</div>
+                                </div>
+                                <div style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem;">Seattle, WA</div>
+                                <ul style="color: var(--text-color); margin-left: 1.5rem; line-height: 1.7;">
+                                    <li>Designed and implemented an event-based interview model that accelerated hiring to surpass 2x growth projections for Amazon's Technical Worldwide Advertising group, the company's second-fastest-growing business.</li>
+                                    <li>Collaborated with hiring managers and recruiters to conduct thorough candidate screenings and evaluations.</li>
+                                    <li>Analyzed recruitment data and metrics to identify trends, evaluate the effectiveness of sourcing channels, and propose data-driven recommendations for process improvement.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Starbucks -->
+                            <div class="job" style="margin-bottom: 2.5rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                                    <div>
+                                        <h3 style="color: var(--text-color); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.25rem;">Starbucks</h3>
+                                        <h4 style="color: var(--secondary-color); font-size: 1.1rem; font-weight: 500;">Recruiting Coordinator (Temporary/Contract)</h4>
+                                    </div>
+                                    <div style="color: var(--text-light); font-weight: 500; white-space: nowrap;">November 2015 - February 2016</div>
+                                </div>
+                                <div style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem;">Seattle, WA</div>
+                                <ul style="color: var(--text-color); margin-left: 1.5rem; line-height: 1.7;">
+                                    <li>Managed the recruitment process for Director and C-suite level candidates in Store Development and Design.</li>
+                                    <li>Developed and coordinated job and recruitment copy for external hiring.</li>
+                                    <li>Represented Starbucks values and professionalism in face-to-face interview processes for C-suite interviewees.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Microsoft -->
+                            <div class="job" style="margin-bottom: 2.5rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap;">
+                                    <div>
+                                        <h3 style="color: var(--text-color); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.25rem;">Microsoft</h3>
+                                        <h4 style="color: var(--secondary-color); font-size: 1.1rem; font-weight: 500;">Recruiting Coordinator (Temporary/Contract)</h4>
+                                    </div>
+                                    <div style="color: var(--text-light); font-weight: 500; white-space: nowrap;">September 2014 - October 2015</div>
+                                </div>
+                                <div style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1rem;">Redmond, WA</div>
+                                <ul style="color: var(--text-color); margin-left: 1.5rem; line-height: 1.7;">
+                                    <li>Managed on-campus recruitment activities for Microsoft's University Recruiting programs, including career fairs, tech talks, hackathons, and interviews at 28 colleges nationwide.</li>
+                                    <li>Implemented diversity-focused initiatives, focusing on HBCUs (Historically Black Colleges and Universities) to enhance diversity in technology recruitment.</li>
+                                    <li>Coordinated logistics for recruitment events, including travel arrangements, accommodations, and event materials.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Certifications Section -->
+                        <div class="resume-section" style="margin-bottom: 3rem;">
+                            <h2 style="color: var(--primary-color); font-size: 1.8rem; margin-bottom: 2rem; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Certifications</h2>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                <div style="background: var(--light-bg); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-color);">
+                                    <strong style="color: var(--primary-color);">CompTIA Security+</strong><br>
+                                    <span style="color: var(--text-light); font-size: 0.9rem;">(SY0-701)</span>
+                                </div>
+                                <div style="background: var(--light-bg); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-color);">
+                                    <strong style="color: var(--primary-color);">CompTIA Network+ CE</strong><br>
+                                    <span style="color: var(--text-light); font-size: 0.9rem;">(N10-009)</span>
+                                </div>
+                                <div style="background: var(--light-bg); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-color);">
+                                    <strong style="color: var(--primary-color);">DataCamp Certified</strong><br>
+                                    <span style="color: var(--text-light); font-size: 0.9rem;">Data Analyst Associate</span>
+                                </div>
+                                <div style="background: var(--light-bg); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--accent-color);">
+                                    <strong style="color: var(--primary-color);">Google Data Analytics</strong><br>
+                                    <span style="color: var(--text-light); font-size: 0.9rem;">Professional Certificate</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Education Section -->
+                        <div class="resume-section">
+                            <h2 style="color: var(--primary-color); font-size: 1.8rem; margin-bottom: 2rem; font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Education</h2>
+                            
+                            <div class="education-item" style="margin-bottom: 1.5rem;">
+                                <h3 style="color: var(--text-color); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.25rem;">U.S. Army Cyber School</h3>
+                                <div style="color: var(--secondary-color); font-weight: 500;">Cyber Operations Specialist (17C) Qualification Course</div>
+                                <div style="color: var(--text-light); font-size: 0.95rem;">Fort Eisenhower, GA</div>
+                            </div>
+                            
+                            <div class="education-item">
+                                <h3 style="color: var(--text-color); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.25rem;">State University of New York College at Geneseo</h3>
+                                <div style="color: var(--secondary-color); font-weight: 500;">Bachelor of Arts in Sociology, Minor in Environmental Studies</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div id="about" class="page">
+            <section class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>About Me</h2>
+                        <p>Get to know me better</p>
+                    </div>
+                    <div style="text-align: center; padding: 4rem 2rem;">
+                        <div class="about-image" style="margin: 0 auto 2rem;">👨‍💻</div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Your Detailed Bio</h3>
+                        <p style="color: var(--text-light); max-width: 700px; margin: 0 auto; line-height: 1.7;">Add your detailed biography, career journey, interests, and what drives you as a developer. This is where you can really connect with visitors and potential employers.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Blog Page -->
+        <div id="blog" class="page">
+            <section class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Blog</h2>
+                        <p>Thoughts, tutorials, and insights from my development journey</p>
+                    </div>
+                    <div style="text-align: center; padding: 4rem 2rem;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Coming Soon</h3>
+                        <p style="color: var(--text-light);">Blog posts and articles will be added here</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact" class="page">
+            <section class="content-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Contact Me</h2>
+                        <p>Let's connect and discuss opportunities</p>
+                    </div>
+                    <div style="text-align: center; padding: 4rem 2rem;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 2rem;">Get In Touch</h3>
+                        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem;">
+                            <a href="mailto:mc.cooke@proton.me" class="btn btn-primary">Email Me</a>
+                            <a href="https://linkedin.com/in/micooke" class="btn btn-secondary">LinkedIn</a>
+                            <a href="https://github.com/watermelondiet" class="btn btn-secondary">GitHub</a>
+                        </div>
+                        <p style="color: var(--text-light);">I'm always interested in new opportunities and collaborations</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <p><a href="mailto:mc.cooke@proton.me">Email</a></p>
+                    <p><a href="https://linkedin.com/in/micooke">LinkedIn</a></p>
+                    <p><a href="https://github.com/watermelondiet">GitHub</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <p><a href="#resume" class="nav-link">Resume</a></p>
+                    <p><a href="#about" class="nav-link">About</a></p>
+                    <p><a href="#contact" class="nav-link">Contact</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Michael Cooke. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinksContainer = document.querySelector('.nav-links');
+
+            // Handle navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    // Hide all pages
+                    pages.forEach(page => page.classList.remove('active'));
+                    
+                    // Show target page
+                    const targetPage = document.getElementById(targetId);
+                    if (targetPage) {
+                        targetPage.classList.add('active');
+                    }
+                    
+                    // Update active nav link
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Close mobile menu
+                    navLinksContainer.classList.remove('active');
+                });
+            });
+
+            // Mobile menu toggle
+            menuToggle.addEventListener('click', function() {
+                navLinksContainer.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
