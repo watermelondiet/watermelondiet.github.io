@@ -1,0 +1,32 @@
+---
+layout: default
+---
+
+<div class="container">
+    <div class="blog-post">
+        <a href="{{ '/blog' | relative_url }}" class="back-to-blog">← Back to Blog</a>
+        
+        <article>
+            <header style="text-align: center; margin-bottom: 3rem;">
+                <h1>{{ page.title }}</h1>
+                <div class="blog-post-meta">
+                    <div style="margin-bottom: 1rem;">
+                        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+                        {% if page.read_time %} • {{ page.read_time }} min read{% endif %}
+                    </div>
+                    {% if page.tech_stack %}
+                    <div class="tech-stack">
+                        {% for tech in page.tech_stack %}
+                        <span class="tech-tag">{{ tech }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </header>
+            
+            <div class="blog-post-content">
+                {{ content }}
+            </div>
+        </article>
+    </div>
+</div>
