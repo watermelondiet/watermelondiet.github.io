@@ -1,0 +1,45 @@
+# Jekyll Configuration for Portfolio
+title: "Michael Cooke - Cybersecurity Professional"
+description: "Cyber Operations Specialist with expertise in red team assessments, defensive operations, and data-driven solutions."
+url: "https://watermelondiet.github.io" 
+baseurl: ""
+
+# Author info
+author:
+  name: "Michael Cooke"
+  email: "mc.cooke@proton.me"
+  linkedin: "https://linkedin.com/in/micooke"
+  github: "https://github.com/watermelondiet"
+
+# Jekyll settings
+markdown: kramdown
+highlighter: rouge
+permalink: /blog/:title/
+timezone: America/Los_Angeles
+
+# Plugins (GitHub Pages supports these automatically)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Collections for blog posts
+collections:
+  posts:
+    output: true
+    permalink: /blog/:title/
+
+# Default settings for posts
+defaults:
+  - scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Michael Cooke"
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
