@@ -3,28 +3,26 @@ layout: default
 ---
 
 <div class="container">
-    <div class="blog-post">
-        <a href="{{ '/blog' | relative_url }}" class="back-to-blog">← Back to Blog</a>
+    <div style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
+        <a href="{{ '/blog' | relative_url }}" style="display: inline-block; background: var(--accent-color); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; margin-bottom: 2rem; cursor: pointer; text-decoration: none; font-weight: 500; transition: background 0.3s ease;">← Back to Blog</a>
         
         <article>
             <header style="text-align: center; margin-bottom: 3rem;">
-                <h1>{{ page.title }}</h1>
-                <div class="blog-post-meta">
-                    <div style="margin-bottom: 1rem;">
-                        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
-                        {% if page.read_time %} • {{ page.read_time }} min read{% endif %}
-                    </div>
-                    {% if page.tech_stack %}
-                    <div class="tech-stack">
-                        {% for tech in page.tech_stack %}
-                        <span class="tech-tag">{{ tech }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
+                <h1 style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 1rem; font-weight: 700; line-height: 1.2;">{{ page.title }}</h1>
+                <div style="color: var(--text-light); font-size: 1rem; margin-bottom: 1rem;">
+                    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+                    {% if page.read_time %} • {{ page.read_time }} min read{% endif %}
                 </div>
+                {% if page.tech_stack %}
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem;">
+                    {% for tech in page.tech_stack %}
+                    <span style="background: var(--light-bg); color: var(--primary-color); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--border-color);">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </header>
             
-            <div class="blog-post-content">
+            <div style="line-height: 1.8; font-size: 1.1rem; color: var(--text-color); max-width: none;">
                 {{ content }}
             </div>
         </article>
