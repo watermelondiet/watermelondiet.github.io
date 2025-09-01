@@ -30,12 +30,14 @@ title: Blog
                 <p style="color: var(--text-light); margin-bottom: 1.5rem; line-height: 1.7;">{{ post.excerpt | strip_html | truncate: 200 }}</p>
                 <a href="{{ post.url | relative_url }}" style="color: var(--accent-color); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s ease;">Read Full Article →</a>
             </article>
-            {% empty %}
+            {% endfor %}
+            
+            {% if site.posts.size == 0 %}
             <div style="text-align: center; padding: 4rem 2rem; grid-column: 1 / -1;">
                 <h3 style="color: var(--primary-color); margin-bottom: 1rem;">No blog posts yet</h3>
                 <p style="color: var(--text-light);">Check back soon for technical insights and project deep-dives!</p>
             </div>
-            {% endfor %}
+            {% endif %}
         </div>
     </div>
 </section>
