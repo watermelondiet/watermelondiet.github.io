@@ -23,7 +23,7 @@ title: Blog
                 {% if post.tech_stack %}
                 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
                     {% for tech in post.tech_stack %}
-                    <span class="tech-tag">{{ tech }}</span>
+                    <span style="background: var(--light-bg); color: var(--primary-color); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--border-color);">{{ tech }}</span>
                     {% endfor %}
                 </div>
                 {% endif %}
