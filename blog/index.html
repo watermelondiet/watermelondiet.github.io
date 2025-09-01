@@ -1,0 +1,41 @@
+---
+layout: default
+title: Blog
+---
+
+<section style="padding: 4rem 0;">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h1 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem; font-weight: 700;">Blog</h1>
+            <p style="font-size: 1.1rem; color: var(--text-light); max-width: 600px; margin: 0 auto;">Deep dives into my cybersecurity projects, automation tools, and technical insights</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+            {% for post in site.posts %}
+            <article style="background: var(--background); border-radius: 12px; padding: 2rem; box-shadow: var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; border: 1px solid var(--border-color);">
+                <h2 style="color: var(--primary-color); margin-bottom: 0.75rem; font-size: 1.4rem; font-weight: 600;">
+                    <a href="{{ post.url | relative_url }}" style="text-decoration: none; color: inherit;">{{ post.title }}</a>
+                </h2>
+                <div style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;">
+                    <span>{{ post.date | date: "%B %d, %Y" }}</span>
+                    {% if post.read_time %}<span>•</span><span>{{ post.read_time }} min read</span>{% endif %}
+                </div>
+                {% if post.tech_stack %}
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+                    {% for tech in post.tech_stack %}
+                    <span class="tech-tag">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <p style="color: var(--text-light); margin-bottom: 1.5rem; line-height: 1.7;">{{ post.excerpt | strip_html | truncate: 200 }}</p>
+                <a href="{{ post.url | relative_url }}" style="color: var(--accent-color); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: color 0.3s ease;">Read Full Article →</a>
+            </article>
+            {% empty %}
+            <div style="text-align: center; padding: 4rem 2rem; grid-column: 1 / -1;">
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">No blog posts yet</h3>
+                <p style="color: var(--text-light);">Check back soon for technical insights and project deep-dives!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
