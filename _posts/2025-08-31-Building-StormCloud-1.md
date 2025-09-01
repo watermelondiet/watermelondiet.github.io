@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Building StormCloud Arsenal: A Military Cyber Professional's Journey into Cloud Security"
-date: 2025-01-15
+date: 2025-08-31
 category: "Cloud Security"
 tech_stack: ["AWS", "Terraform", "Python", "MITRE ATT&CK", "IaC"]
 read_time: 10
